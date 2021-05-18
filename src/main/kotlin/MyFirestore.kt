@@ -46,7 +46,7 @@ class MyFirestore private constructor() {
         mainCollection.document(id).set(icao, SetOptions.merge()).get()
     }
 
-    fun getIcao(id: String): Icao? = mainCollection.document(id).get().get().let { it.toObject(Icao::class.java) }
+    fun getIcao(id: String): Icao? = mainCollection.document(id).get().get().toObject(Icao::class.java)
 
     fun addCriticalAssetsConfigToIcao(
         icaoId: String,
@@ -61,7 +61,7 @@ class MyFirestore private constructor() {
         icaoId: String,
         criticalAssetsConfigId: String
     ): CriticalAssetsConfig? = mainCollection.document(icaoId).collection(criticalAssetsConfigCollectionName)
-        .document(criticalAssetsConfigId).get().get().let { it.toObject(CriticalAssetsConfig::class.java) }
+        .document(criticalAssetsConfigId).get().get().toObject(CriticalAssetsConfig::class.java)
 
     fun addCriticalAssetsToCriticalAssetsConfigOfIcao(
         icaoId: String,
@@ -80,7 +80,7 @@ class MyFirestore private constructor() {
         criticalAssetsId: String
     ): CriticalAssets? = mainCollection.document(icaoId).collection(criticalAssetsConfigCollectionName)
         .document(criticalAssetsConfigId).collection(criticalAssetsCollectionName).document(criticalAssetsId).get()
-        .get().let { it.toObject(CriticalAssets::class.java) }
+        .get().toObject(CriticalAssets::class.java)
 
     fun addExerciseToIcao(
         icaoId: String,
@@ -95,7 +95,7 @@ class MyFirestore private constructor() {
         icaoId: String,
         exerciseId: String
     ): Exercise? = mainCollection.document(icaoId).collection(exercisesCollectionName)
-        .document(exerciseId).get().get().let { it.toObject(Exercise::class.java) }
+        .document(exerciseId).get().get().toObject(Exercise::class.java)
 
     fun addEventToExerciseOfIcao(
         icaoId: String,
@@ -113,8 +113,7 @@ class MyFirestore private constructor() {
         exerciseId: String,
         eventId: String
     ): Event? = mainCollection.document(icaoId).collection(exercisesCollectionName)
-        .document(exerciseId).collection(eventsCollectionName).document(eventId).get().get()
-        .let { it.toObject(Event::class.java) }
+        .document(exerciseId).collection(eventsCollectionName).document(eventId).get().get().toObject(Event::class.java)
 
     fun addTrafficToExerciseOfIcao(
         icaoId: String,
@@ -133,5 +132,5 @@ class MyFirestore private constructor() {
         trafficId: String
     ): Traffic? = mainCollection.document(icaoId).collection(exercisesCollectionName)
         .document(exerciseId).collection(trafficCollectionName).document(trafficId).get().get()
-        .let { it.toObject(Traffic::class.java) }
+        .toObject(Traffic::class.java)
 }
